@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User
+from .models import User, Listing, Comments, Bids
 
 
 def index(request):
@@ -65,12 +65,18 @@ def register(request):
 
 # @login_required
 def create_listing(request):
-    # if request.method == "POST":
-    #     title = request.POST["title"]
-    #     description = request.POST["description"]
-    #     starting_bid = request.POST["bid"]
-    #     img_url = request.POST["img"]
-    #     category = request.POST["category"]
+    if request.method == "POST":
+        title = request.POST["title"]
+        description = request.POST["description"]
+        # starting_bid = request.POST["price"]
+        # img_url = request.POST["img"]
+        categories = Categories.objects.get(pk=request.POST["categories"])
         
-    # else:
-    return render(request, "auctions/create.html")
+        return HttpResponseRequest(reverse("active"))
+        
+    else:
+        return render(request, "auctions/create.html")
+    
+
+def category_view(request):
+    return render(request, "auctions/categories.html")
