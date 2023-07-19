@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Listing, Comments, Bids
+from .models import User, Listing, Comments, Bids, Categories
 
 
 def index(request):
@@ -80,3 +80,4 @@ def create_listing(request):
 
 def category_view(request):
     return render(request, "auctions/categories.html")
+    
