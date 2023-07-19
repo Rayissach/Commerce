@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from djanngo.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import reverse
 
@@ -63,13 +63,14 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 
-@login_required
-def create_lisiting(request):
-    if request.method == "POST":
-        title = request.POST["title"]
-        description = request.POST["description"]
-        starting_bid = request.POST["bid"]
-        img_url = request.POST["img"]
-        category = request.POST["category"]
-    else:
-        return render(request, "auctions/create.html")
+# @login_required
+def create_listing(request):
+    # if request.method == "POST":
+    #     title = request.POST["title"]
+    #     description = request.POST["description"]
+    #     starting_bid = request.POST["bid"]
+    #     img_url = request.POST["img"]
+    #     category = request.POST["category"]
+        
+    # else:
+    return render(request, "auctions/create.html")
