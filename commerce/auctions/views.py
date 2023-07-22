@@ -65,17 +65,20 @@ def register(request):
 
 # @login_required
 def create_listing(request):
+    # listing = Listing.objects.get(pk=listing_id)
     if request.method == "POST":
         title = request.POST["title"]
         description = request.POST["description"]
         # starting_bid = request.POST["price"]
         # img_url = request.POST["img"]
-        categories = Categories.objects.get(pk=request.POST["categories"])
+        # categories = Categories.objects.get(pk=request.POST["categories"])
         
         return HttpResponseRequest(reverse("active"))
         
     else:
-        return render(request, "auctions/create.html")
+        return render(request, "auctions/create.html", {
+            "categories": Categories.objects.all()
+        })
     
 
 def category_view(request):

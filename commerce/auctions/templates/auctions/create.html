@@ -13,11 +13,11 @@
             <input class="form_control" type="url" name="img_url" placeholder="Image URL">
         </div>
         <div class="form-group">
-            {% comment %} <select name="categories">
+            <select name="categories">
                 {% for category in categories %}
-                    <option value="">{{ category }}</option>
+                    <option value="{{ category.id }}">{{ category }}</option>
                 {% endfor %}
-            </select> {% endcomment %}
+            </select> 
         </div>
         <div class="form-group">
             <input type="submit" value="Save">
