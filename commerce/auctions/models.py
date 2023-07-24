@@ -6,14 +6,14 @@ class User(AbstractUser):
     pass
 
 class Categories(models.Model):
-    category = models.CharField(max_length=20)
+    category = models.CharField(max_length=50)
     
     def __str__(self):
         return f"{self.category}"
 
 class Listing(models.Model):
-    title = models.CharField(max_length=20)
-    description = models.TextField(max_length=100)
+    title = models.CharField(max_length=50)
+    description = models.TextField(max_length=1000)
     price = models.DecimalField(max_digits=10,decimal_places=2)
     image = models.ImageField(height_field=60, width_field=60)
     created = models.DateTimeField(auto_now_add=True)
