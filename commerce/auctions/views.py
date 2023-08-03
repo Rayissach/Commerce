@@ -68,18 +68,30 @@ def active_listing(request):
 
 # @login_required
 def create_listing(request):
+    context = {}
+    form = Listing(request.POST, request.FILES)
     
     if request.method == "POST":
-        try:
-            title = request.POST["title"]
-            description = request.POST["description"]
-            starting_bid = request.POST["price"]
-            image = request.POST.get("image", False)
-            # category = Categories.objects.get(pk=(request.POST["category"]))
-        except IntegrityError:
-            return render(request, "auctions/create.html", {
-                "message": "Please fill in required fields."
-            })
+        if form.is_valid():
+            try:
+                title = request.POST["title"]
+                description = request.POST["description"]
+                starting_bid = request.POST["price"]
+                image = request.POST.get("image", False)
+                category = Categories.objects.get(pk=(request.POST["category"]))
+                activate = Listing.objects.create( 
+                                                  title = title,
+                                                  description = description,
+                                                  price = starting_bid,
+                                                  image = image,
+                                                  categories = category)
+                activate.save()
+                print(activate)
+                
+            except IntegrityError:
+                return render(request, "auctions/create.html", {
+                    "message": "Please fill in required fields."
+                })
         
         return HttpResponseRedirect(reverse("active"))
     else:
