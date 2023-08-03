@@ -91,7 +91,9 @@ def create_listing(request):
 def category_view(request):
     return render(request, "auctions/categories.html")
 
-def active_listing(request):
-    
-    return render(request, "auctions/active.html")
+def active_listing(request, listing_id):
+    listing = Listing.objects.get(pk=listing_id)
+    return render(request, "auctions/active.html", {
+        "listing": listing
+    })
     
