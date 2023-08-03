@@ -18,6 +18,9 @@ class Listing(models.Model):
     image = models.ImageField(height_field=60, width_field=60)
     created = models.DateTimeField(auto_now_add=True)
     categories = models.ManyToManyField(Categories, related_name="categories")
+    
+    def __str__(self):
+        return f"{self.id}: {self.title} {self.image} {self.description} {self.price} {self.created} {self.categories}"
 
 class Bids(models.Model):
     item = models.CharField(max_length=20)

@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from .models import User, Listing, Comments, Bids, Categories
@@ -62,19 +62,26 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "auctions/register.html")
+    
+def active_listing(request):
+    return render(request, "auctions/active.hmtl")
 
 # @login_required
 def create_listing(request):
-    # listing = Listing.objects.get(pk=listing_id)
+    
     if request.method == "POST":
-        title = request.POST["title"]
-        description = request.POST["description"]
-        # starting_bid = request.POST["price"]
-        # img_url = request.POST["img"]
-        # categories = Categories.objects.get(pk=request.POST["categories"])
+        try:
+            title = request.POST["title"]
+            description = request.POST["description"]
+            starting_bid = request.POST["price"]
+            image = request.POST.get("image", False)
+            # category = Categories.objects.get(pk=(request.POST["category"]))
+        except IntegrityError:
+            return render(request, "auctions/create.html", {
+                "message": "Please fill in required fields."
+            })
         
-        return HttpResponseRequest(reverse("active"))
-        
+        return HttpResponseRedirect(reverse("active"))
     else:
         return render(request, "auctions/create.html", {
             "categories": Categories.objects.all()
@@ -83,4 +90,8 @@ def create_listing(request):
 
 def category_view(request):
     return render(request, "auctions/categories.html")
+
+def active_listing(request):
+    
+    return render(request, "auctions/active.html")
     
